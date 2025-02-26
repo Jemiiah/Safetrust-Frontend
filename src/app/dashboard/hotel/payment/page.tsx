@@ -1,22 +1,10 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useGlobalAuthenticationStore } from '@/core/store/data';
+import React from 'react';
 import HotelDetails from '@/components/hotels/payment/HotelDetails';
 import ReservationSummary from '@/components/hotels/payment/ReservationSummary';
 
 const HotelPage = () => {
-  const router = useRouter();
-  const address = useGlobalAuthenticationStore((state) => state.address);
-
-  useEffect(() => {
-    if (!address) {
-      router.push('/');
-    }
-  }, [address, router]);
-
-  // This would typically come from an API or database
   const hotelData = {
     hotelName: 'Sheraton Miramar',
     description:
