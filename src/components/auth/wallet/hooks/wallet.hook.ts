@@ -1,8 +1,10 @@
 import { ISupportedWallet } from "@creit.tech/stellar-wallets-kit";
 import { kit } from "../constants/wallet-kit.constant";
 import { useGlobalAuthenticationStore } from "@/core/store/data";
+import { useRouter } from "next/navigation";
 
 export const useWallet = () => {
+  const router = useRouter();
   const { connectWalletStore, disconnectWalletStore } =
     useGlobalAuthenticationStore();
 
@@ -23,6 +25,7 @@ export const useWallet = () => {
   const disconnectWallet = async () => {
     await kit.disconnect();
     disconnectWalletStore();
+    router.push("/");
   };
 
   const handleConnect = async () => {
