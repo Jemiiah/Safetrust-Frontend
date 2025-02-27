@@ -2,6 +2,7 @@ import type React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { fundReservationEscrow, initializedReservationEscrow } from '@/services/escrow.service';
 
 interface ReservationSummaryProps {
   hotelName: string;
@@ -29,6 +30,19 @@ const ReservationSummary: React.FC<ReservationSummaryProps> = ({
       day: '2-digit',
     });
   };
+
+  const onPayReservation = async () => {
+    const { data } = await initializedReservationEscrow({
+      hotelName,
+      description,
+      price: totalAmount,
+      tax,
+    })
+    
+    const contractId = data.contract_id;
+
+    await fundReservationEscrow({ contractId, amount: totalAmount });
+  }
 
   return (
     <Card className="sticky top-20 pt-4 max-h-[calc(100vh-5rem)] overflow-y-auto z-0">
@@ -77,6 +91,7 @@ const ReservationSummary: React.FC<ReservationSummaryProps> = ({
         <Button
           className="w-full"
           size="lg"
+          onClick={onPayReservation}
         >
           Pay with Wallet
         </Button>
