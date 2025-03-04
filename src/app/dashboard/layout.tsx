@@ -9,7 +9,8 @@ import { Header } from "@/components/layouts/Header";
 // Define public routes that don't require authentication
 const PUBLIC_ROUTES = [
   "/dashboard/hotel/payment",
-  "/dashboard/hotel/details"
+  "/dashboard/hotel/details",
+  "/dashboard/hotel/search",
 ];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
